@@ -20,7 +20,7 @@ router.post('/login',[
 ], login);
 
 // Rota para pegar dados do usuário logado
-router.get('/me', verifyToken, (req, res) => { 
+router.get('/profile', verifyToken, (req, res) => { 
   res.status(200).json({
     message: 'Usuário autenticado',
     user: req.user,
