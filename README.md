@@ -1,3 +1,28 @@
+<<<<<<< HEAD
+# 🎁 Urbana Gift Card API
+
+Sistema de gestão de cartões presente digitais com funcionalidades completas para usuários e administradores.
+
+---
+
+## 📌 Tecnologias Utilizadas
+
+- **Node.js** + **Express**
+- **PostgreSQL** + `pg`
+- **JWT** para autenticação
+- **bcryptjs** para criptografia de senhas
+- **express-validator** para validação de inputs
+- **dotenv**, **helmet**, **morgan**, **uuid**
+
+---
+
+## ⚙️ Instalação
+
+```bash
+git clone https://github.com/seuusuario/urbana-giftcard-api.git
+cd urbana-giftcard-api
+npm install
+=======
 # Banco de Dados: Urbano
 
 ## Visão Geral
@@ -155,3 +180,4 @@
 - Integridade garantida com FK, PK e CHECKs.
 - Senhas são armazenadas em `password_hash` (nunca texto puro).
 
+>>>>>>> d2dd2be1c2187f72d52b0627aa0b8626ca1c5693

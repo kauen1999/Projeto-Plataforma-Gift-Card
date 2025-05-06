@@ -1,0 +1,12 @@
+  /wallet/transactions:
+    get:
+      tags:
+        - Wallet
+      summary: Lista o histórico de transações da carteira do usuário logado
+      security:
+        - bearerAuth: []
+      responses:
+        200:
+          description: Lista de transações retornada com sucesso
+        401:
+          description: Token inválido ou ausente

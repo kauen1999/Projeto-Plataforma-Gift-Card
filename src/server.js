@@ -1,3 +1,11 @@
+<<<<<<< HEAD
+const app = require('./app');
+const { PORT } = require('./config/env');
+
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
+});
+=======
 const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
@@ -32,3 +40,4 @@ app.use('/api/wallet', walletRoutes);
 const PORT = process.env.PORT || 3001;
 
 app.listen(PORT, () => { console.log(`Servidor rodando em http://localhost:${PORT}`); });
+>>>>>>> d2dd2be1c2187f72d52b0627aa0b8626ca1c5693

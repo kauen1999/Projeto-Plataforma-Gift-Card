@@ -1,0 +1,44 @@
+  /payments:
+    post:
+      tags:
+        - Payments
+      summary: Cria pagamento externo
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - offer_id
+              properties:
+                offer_id:
+                  type: integer
+      responses:
+        201:
+          description: Pagamento criado
+        400:
+          description: Erro de validação
+
+  /payments/{id}/confirm:
+    post:
+      tags:
+        - Payments
+      summary: Confirma um pagamento externo e gera o gift card
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        201:
+          description: Pagamento confirmado e gift card gerado
+        404:
+          description: Pagamento não encontrado ou não está pendente
+        500:
+          description: Erro interno ao confirmar pagamento
