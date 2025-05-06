@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "name": "urbano",
   "version": "1.0.0",
   "description": "API backend do projeto Urbana Gift Card",
@@ -26,11 +27,39 @@
     "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.0",
     "pg": "^8.15.6",
+=======
+  "name": "ocean.it",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "dayjs": "^1.11.13",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "express-validator": "^7.2.1",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.15.1",
+    "swagger-jsdoc": "^6.2.8",
+>>>>>>> d2dd2be1c2187f72d52b0627aa0b8626ca1c5693
     "swagger-ui-express": "^5.0.1",
     "uuid": "^11.1.0",
     "yamljs": "^0.3.0"
   },
   "devDependencies": {
+<<<<<<< HEAD
     "nodemon": "^3.1.10"
+=======
+    "nodemon": "^3.1.9"
+>>>>>>> d2dd2be1c2187f72d52b0627aa0b8626ca1c5693
   }
 }
