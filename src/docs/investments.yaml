@@ -1,0 +1,74 @@
+/investments/options:
+    post:
+      tags:
+        - Investments
+      summary: Cria uma nova opção de investimento (admin)
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - minimum_value
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+                minimum_value:
+                  type: number
+      responses:
+        201:
+          description: Opção criada com sucesso
+        400:
+          description: Dados inválidos
+        401:
+          description: Não autorizado
+
+    get:
+      tags:
+        - Investments
+      summary: Lista as opções de investimento disponíveis
+      security:
+        - bearerAuth: []
+      responses:
+        200:
+          description: Lista retornada com sucesso
+
+  /investments/apply/{option_id}:
+    post:
+      tags:
+        - Investments
+      summary: Aplica um valor em uma opção de investimento usando saldo da wallet
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: option_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - amount
+              properties:
+                amount:
+                  type: number
+      responses:
+        201:
+          description: Investimento aplicado com sucesso
+        400:
+          description: Valor inválido ou saldo insuficiente
+        401:
+          description: Não autorizado
+        404:
+          description: Opção de investimento não encontrada
