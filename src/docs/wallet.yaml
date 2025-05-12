@@ -1,12 +1,26 @@
-  /wallet/transactions:
+paths:
+  /api/wallet:
     get:
       tags:
         - Wallet
-      summary: Lista o histórico de transações da carteira do usuário logado
+      summary: Retorna o saldo atual da carteira do usuário autenticado
       security:
         - bearerAuth: []
       responses:
-        200:
-          description: Lista de transações retornada com sucesso
-        401:
-          description: Token inválido ou ausente
+        '200':
+          description: Saldo retornado com sucesso
+        '401':
+          description: Não autorizado
+
+  /api/wallet/transactions:
+    get:
+      tags:
+        - Wallet
+      summary: Retorna o histórico de transações da carteira
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Lista de transações da carteira
+        '401':
+          description: Não autorizado

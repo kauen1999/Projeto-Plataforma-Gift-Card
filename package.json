@@ -1,65 +1,30 @@
 {
-<<<<<<< HEAD
-  "name": "urbano",
-  "version": "1.0.0",
-  "description": "API backend do projeto Urbana Gift Card",
-  "main": "src/server.js",
-  "scripts": {
-    "dev": "nodemon src/server.js",
-    "start": "node src/server.js"
-  },
-  "keywords": [
-    "giftcard",
-    "api",
-    "backend",
-    "express",
-    "urbano"
-  ],
-  "author": "Seu Nome",
-  "license": "MIT",
-  "dependencies": {
-    "bcryptjs": "^3.0.2",
-    "cors": "^2.8.5",
-    "dotenv": "^16.5.0",
-    "express": "^5.1.0",
-    "express-validator": "^7.2.1",
-    "helmet": "^8.1.0",
-    "jsonwebtoken": "^9.0.2",
-    "morgan": "^1.10.0",
-    "pg": "^8.15.6",
-=======
-  "name": "ocean.it",
+  "name": "plataforma-giftcard",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "commonjs",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon src/server.js",
     "start": "node src/server.js",
-    "dev": "nodemon src/server.js"
+    "test": " jest"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "dependencies": {
-    "bcryptjs": "^3.0.2",
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
-    "dayjs": "^1.11.13",
-    "dotenv": "^16.5.0",
-    "express": "^5.1.0",
-    "express-validator": "^7.2.1",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-validator": "^7.0.1",
+    "helmet": "^7.0.0",
     "jsonwebtoken": "^9.0.2",
-    "pg": "^8.15.1",
-    "swagger-jsdoc": "^6.2.8",
->>>>>>> d2dd2be1c2187f72d52b0627aa0b8626ca1c5693
+    "morgan": "^1.10.0",
+    "pg": "^8.11.1",
     "swagger-ui-express": "^5.0.1",
-    "uuid": "^11.1.0",
+    "uuid": "^9.0.0",
     "yamljs": "^0.3.0"
   },
   "devDependencies": {
-<<<<<<< HEAD
-    "nodemon": "^3.1.10"
-=======
-    "nodemon": "^3.1.9"
->>>>>>> d2dd2be1c2187f72d52b0627aa0b8626ca1c5693
+    "jest": "^29.7.0",
+    "nodemon": "^3.0.1",
+    "supertest": "^7.1.1"
   }
 }

@@ -1,14 +1,31 @@
+const swaggerUi = require('swagger-ui-express');
+const YAML = require('yamljs');
 const path = require('path');
-const swaggerJsdoc = require('swagger-jsdoc');
+const fs = require('fs');
 
-const options = {
-  definition: {
+function loadSwaggerDocs() {
+  const docFolder = path.join(__dirname, '..', 'docs');
+  const files = fs.readdirSync(docFolder).filter(file => file.endsWith('.yaml'));
+
+  const combinedPaths = {};
+
+  files.forEach(file => {
+    const doc = YAML.load(path.join(docFolder, file));
+    if (doc.paths) {
+      Object.assign(combinedPaths, doc.paths);
+    }
+  });
+
+  return {
     openapi: '3.0.0',
     info: {
-      title: 'Urbana Gift Card API',
+      title: 'API Plataforma Gift Card',
       version: '1.0.0',
-      description: 'Documentação Swagger para a API Urbana Gift Card'
+      description: 'Documentação da API por módulos'
     },
+    servers: [
+      { url: 'http://localhost:3001' }
+    ],
     components: {
       securitySchemes: {
         bearerAuth: {
@@ -19,16 +36,13 @@ const options = {
       }
     },
     security: [
-      {
-        bearerAuth: []
-      }
-    ]
-  },
-  apis: [
-    path.resolve(__dirname, '../docs/*.yaml')
-  ]
+      { bearerAuth: [] }
+    ],
+    paths: combinedPaths
+  };
+}
+
+module.exports = (app) => {
+  const swaggerSpec = loadSwaggerDocs();
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 };
-
-const swaggerSpec = swaggerJsdoc(options);
-
-module.exports = swaggerSpec;

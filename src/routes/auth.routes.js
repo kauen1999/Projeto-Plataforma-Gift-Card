@@ -1,3 +1,5 @@
+
+// src/routes/auth.routes.js
 const express = require('express');
 const router = express.Router();
 
@@ -9,7 +11,7 @@ const { loginValidator, registerValidator } = require('../validators/authValidat
 const requireAuth = require('../middlewares/auth');
 
 router.post('/login', loginValidator, login);
-router.post('/register', registerValidator, register);
+router.post('/register', register);
 router.get('/me', requireAuth, me);
 
 module.exports = router;

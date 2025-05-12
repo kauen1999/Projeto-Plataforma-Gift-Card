@@ -1,8 +1,22 @@
-/giftcards/wallet:
+paths:
+  /api/giftcards:
+    get:
+      tags:
+        - Gift Cards
+      summary: Lista os gift cards atribuídos ao usuário autenticado
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Lista de gift cards
+        '401':
+          description: Não autorizado
+
+  /api/giftcards/wallet:
     post:
       tags:
-        - GiftCards
-      summary: Cria um gift card usando saldo da wallet
+        - Gift Cards
+      summary: Cria um gift card usando saldo da carteira
       security:
         - bearerAuth: []
       requestBody:
@@ -11,50 +25,22 @@
           application/json:
             schema:
               type: object
-              required:
-                - offer_id
               properties:
                 offer_id:
                   type: integer
       responses:
-        201:
+        '201':
           description: Gift card criado com sucesso
-        400:
-          description: Erro de validação ou saldo insuficiente
-        404:
-          description: Oferta não encontrada
+        '400':
+          description: Dados inválidos
+        '401':
+          description: Não autorizado
 
-  /giftcards/payment:
-    post:
-      tags:
-        - GiftCards
-      summary: Cria um pedido de pagamento externo para compra de gift card
-      security:
-        - bearerAuth: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - offer_id
-              properties:
-                offer_id:
-                  type: integer
-      responses:
-        201:
-          description: Pagamento criado com status pendente
-        400:
-          description: Erro de validação
-        404:
-          description: Oferta não encontrada
-
-  /giftcards/activate:
+  /api/giftcards/activate:
     patch:
       tags:
-        - GiftCards
-      summary: Ativa um gift card com senha do usuário
+        - Gift Cards
+      summary: Ativa um gift card usando o código
       security:
         - bearerAuth: []
       requestBody:
@@ -63,27 +49,22 @@
           application/json:
             schema:
               type: object
-              required:
-                - giftcard_id
-                - password
               properties:
-                giftcard_id:
-                  type: integer
-                password:
+                code:
                   type: string
       responses:
-        200:
-          description: Cartão ativado
-        400:
-          description: Requisição inválida
-        401:
-          description: Senha incorreta ou token inválido
+        '200':
+          description: Gift card ativado
+        '400':
+          description: Código inválido
+        '401':
+          description: Não autorizado
 
-  /giftcards/use:
+  /api/giftcards/use:
     patch:
       tags:
-        - GiftCards
-      summary: Usa parcial ou totalmente o saldo de um gift card
+        - Gift Cards
+      summary: Usa parte do saldo de um gift card
       security:
         - bearerAuth: []
       requestBody:
@@ -92,25 +73,22 @@
           application/json:
             schema:
               type: object
-              required:
-                - giftcard_id
-                - amount
               properties:
                 giftcard_id:
                   type: integer
                 amount:
                   type: number
       responses:
-        200:
-          description: Cartão usado com sucesso
-        400:
-          description: Erro de uso
+        '200':
+          description: Valor debitado do gift card
+        '400':
+          description: Saldo insuficiente ou dados inválidos
 
-  /giftcards/transfer:
+  /api/giftcards/transfer:
     patch:
       tags:
-        - GiftCards
-      summary: Transfere um gift card para outro usuário
+        - Gift Cards
+      summary: Transfere saldo de um gift card para outro usuário
       security:
         - bearerAuth: []
       requestBody:
@@ -119,59 +97,58 @@
           application/json:
             schema:
               type: object
-              required:
-                - giftcard_id
-                - recipient_email
               properties:
                 giftcard_id:
                   type: integer
-                recipient_email:
+                target_user_id:
+                  type: integer
+                amount:
+                  type: number
+      responses:
+        '200':
+          description: Transferência realizada com sucesso
+        '400':
+          description: Erro na transferência
+
+  /api/giftcards/refund:
+    patch:
+      tags:
+        - Gift Cards
+      summary: Solicita estorno de um gift card
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                giftcard_id:
+                  type: integer
+                reason:
                   type: string
       responses:
-        200:
-          description: Cartão transferido
-        400:
-          description: Requisição inválida
+        '200':
+          description: Reembolso solicitado
+        '400':
+          description: Dados inválidos
 
-  /giftcards/refund:
-    patch:
-      tags:
-        - GiftCards
-      summary: Reembolsa o saldo restante do gift card para a wallet
-      security:
-        - bearerAuth: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - giftcard_id
-              properties:
-                giftcard_id:
-                  type: integer
-      responses:
-        200:
-          description: Reembolso realizado com sucesso
-        400:
-          description: Cartão inválido para reembolso
-
-  /giftcards/{id}/logs:
+  /api/giftcards/{giftcard_id}/logs:
     get:
       tags:
-        - GiftCards
-      summary: Retorna o histórico de ações do cartão
+        - Gift Cards
+      summary: Retorna o histórico de uso de um gift card
       security:
         - bearerAuth: []
       parameters:
-        - name: id
+        - name: giftcard_id
           in: path
           required: true
           schema:
             type: integer
       responses:
-        200:
+        '200':
           description: Logs retornados com sucesso
-        404:
-          description: Cartão não encontrado
+        '404':
+          description: Gift card não encontrado

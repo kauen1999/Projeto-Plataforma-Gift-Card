@@ -1,43 +1,53 @@
-<<<<<<< HEAD
-const app = require('./app');
-const { PORT } = require('./config/env');
-
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
-});
-=======
 const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
+const path = require('path');
+
 dotenv.config();
 const app = express();
-const authRoues = require('./routes/authRoutes');
-const adminRoutes = require('./routes/adminRoutes');
-const offerRoutes = require('./routes/offerRoutes');
-const giftcardRoutes = require('./routes/giftcardRoutes');
-const dashboardRoutes = require('./routes/dashboardRoutes');
-const investmentRoutes = require('./routes/investmentRoutes')
-const walletRoutes = require('./routes/walletRoutes');
 
+// Middlewares globais (tem que vir antes de qualquer rota)
 app.use(express.json());
 app.use(cors());
 
-// Conecta ao banco
+// Conexão com o banco
 require('./config/db');
 
-// Rota raiz de teste
-app.get('/', (req, res) => { res.send('API Gift Card rodando...');});
+// Swagger modular (deve vir após middlewares básicos)
+require('./config/swagger')(app);
+
+// Rotas (corrigidas com nomes reais dos arquivos)
+const authRoutes = require('./routes/auth.routes');
+const adminRoutes = require('./routes/admin.routes');
+const offerRoutes = require('./routes/offers.routes');
+const giftcardRoutes = require('./routes/giftCard.routes');
+const userRoutes = require('./routes/user.routes');
+const investmentRoutes = require('./routes/investment.routes');
+const walletRoutes = require('./routes/wallet.routes');
+const paymentRoutes = require('./routes/payment.routes');
+
+// Rota pública de teste
+app.get('/', (req, res) => {
+  res.send('🚀 API Gift Card rodando...');
+});
 
 // Rotas
-app.use('/api/auth', authRoues);
+app.use('/api/auth', authRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/offers', offerRoutes);
 app.use('/api/giftcards', giftcardRoutes);
-app.use('/api/dashboard', dashboardRoutes);
+app.use('/api/user', userRoutes);
 app.use('/api/investment', investmentRoutes);
 app.use('/api/wallet', walletRoutes);
+app.use('/api/payments', paymentRoutes);
 
+// Inicializa servidor
 const PORT = process.env.PORT || 3001;
+if(require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`✅ Servidor rodando: http://localhost:${PORT}`);
+    console.log(`📚 Swagger: http://localhost:${PORT}/api-docs`);
+  });
+}
 
-app.listen(PORT, () => { console.log(`Servidor rodando em http://localhost:${PORT}`); });
->>>>>>> d2dd2be1c2187f72d52b0627aa0b8626ca1c5693
+module.exports = app;
